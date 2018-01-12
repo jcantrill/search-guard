@@ -51,9 +51,9 @@ public class XFFResolver implements ConfigurationChangeListener {
             log.trace("resolve {}", request.getRemoteAddress());
         }
         
-        if(enabled && request.getRemoteAddress() instanceof InetSocketAddress && request instanceof Netty4HttpRequest) {
+        if(enabled && request.getRemoteAddress() instanceof InetSocketAddress) {
 
-            final InetSocketAddress isa = new InetSocketAddress(detector.detect((Netty4HttpRequest) request, threadContext), ((InetSocketAddress)request.getRemoteAddress()).getPort());
+            final InetSocketAddress isa = new InetSocketAddress(detector.detect(request, threadContext), ((InetSocketAddress)request.getRemoteAddress()).getPort());
         
             if(isa.isUnresolved()) {           
                 throw new ElasticsearchSecurityException("Cannot resolve address "+isa.getHostString());
